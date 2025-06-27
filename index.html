@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Дорама | Пужа</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <style>
+    :root {
+      --primary: #ff00d0;
+      --dark: #1a1a2e;
+      --light: #ffb3f0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      background-color: var(--dark);
+      color: var(--light);
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #2e2c3a;
+      padding: 16px 40px;
+      color: var(--primary);
+    }
+
+    .navbar .logo {
+      display: flex;
+      align-items: center;
+      font-size: 22px;
+      font-weight: bold;
+      color: var(--primary);
+    }
+
+    .navbar .logo i {
+      margin-right: 8px;
+      font-size: 24px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-links a {
+      color: var(--light);
+      text-decoration: none;
+      font-size: 16px;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: #ffffff;
+    }
+
+    .nav-icons {
+      display: flex;
+      gap: 20px;
+      font-size: 20px;
+      color: var(--light);
+      cursor: pointer;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 2rem 0 1rem;
+      font-size: 2rem;
+    }
+
+    .manga-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.5rem;
+      padding: 0 2rem 2rem;
+    }
+
+    .manga-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .manga-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 0 15px var(--primary);
+    }
+
+    .manga-card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+
+    .manga-info {
+      padding: 1rem;
+    }
+
+    .manga-info h3 {
+      color: #ffffff;
+      margin-bottom: 0.3rem;
+      font-size: 1.1rem;
+    }
+
+    .manga-info h5 {
+      color: #ffffff;
+      margin-bottom: 0.3rem;
+      font-size: 0.9rem;
+    }
+
+    .rating {
+      color: gold;
+      font-weight: 700;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .nav-icons {
+        gap: 10px;
+      }
+
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Навигация -->
+  <header class="navbar">
+    <div class="logo">
+      <i class="bi bi-play-btn-fill"></i>
+      Dorama.land
+    </div>
+    <nav class="nav-links">
+      <a href="#">новые серии</a>
+      <a href="#">все дорамы</a>
+      <a href="#">фильмы</a>
+      <a href="#">расписание</a>
+      <a href="#">подборки</a>
+    </nav>
+    <div class="nav-icons">
+      <i class="bi bi-grid-fill"></i>
+      <i class="bi bi-search"></i>
+    </div>
+  </header>
+
+  <!-- Заголовок -->
+  <h1>Дорама</h1>
+
+  <!-- Карточки дорам -->
+  <div class="manga-grid">
+
+    <!-- Card 1 -->
+    <a href="anime-details.html" class="manga-card">
+      <img src="https://avatars.mds.yandex.net/i?id=2a0000019791079599171e0222123ac5ea6f-1412630-fast-images&n=13" alt="Покорение Его Высочества">
+      <div class="manga-info">
+        <h3>Покорение Его Высочества</h3>
+        <h5>6-серия</h5>
+        <span class="rating">★ 4.9</span>
+      </div>
+    </a>
+
+    <!-- Card 2 -->
+    <a href="anime-details.html" class="manga-card">
+      <img src="https://avatars.mds.yandex.net/i?id=f2d0115ff6c63ec1e6adce479b041d2f04e288a4-6254930-images-thumbs&n=13" alt="Охотник со скальпелем">
+      <div class="manga-info">
+        <h3>Охотник со скальпелем</h3>
+        <h5>7-серия</h5>
+        <span class="rating">★ 4.9</span>
+      </div>
+    </a>
+
+    <!-- Card 3 -->
+    <a href="anime-details.html" class="manga-card">
+      <img src="https://avatars.mds.yandex.net/i?id=a4f97bf45df3ebc83097cdcc359eea2476d88791-8228018-images-thumbs&n=13" alt="Нокут">
+      <div class="manga-info">
+        <h3>Нокут</h3>
+        <h5>6-серия</h5>
+        <span class="rating">★ 4.9</span>
+      </div>
+    </a>
+
+    <a href="anime-details.html" class="manga-card">
+        <img src="https://avatars.mds.yandex.net/i?id=1d7844c4119e38f29a5e2c716e504d663a5b8b47-5447131-images-thumbs&n=13" alt="Выходи замуж за моего супруга (японская версия)">
+        <div class="manga-info">
+          <h3>Выходи замуж за моего супруга (японская версия)</h3>
+          <h5>6-серия</h5>
+          <span class="rating">★ 4.9</span>
+        </div>
+    </a>
+
+    <!-- Card 5 -->
+    <a href="anime-details.html" class="manga-card">
+        <img src="https://avatars.mds.yandex.net/i?id=c3275918ac0183c1e72db2846ddda9347e3d1829-5657257-images-thumbs&n=13" alt="Неизвестный Сеул">
+        <div class="manga-info">
+          <h3>Неизвестный Сеул</h3>
+          <h5>9-серия</h5>
+          <span class="rating">★ 4.9</span>
+        </div>
+      </a>
+    
+    <!-- Card 6 -->
+    <a href="anime-details.html" class="manga-card">
+        <img src="https://avatars.mds.yandex.net/i?id=cf103df373c1394d1f8d0e7937418558f2531213-5230232-images-thumbs&n=13" alt="обязанности после школы дорама">
+        <div class="manga-info">
+          <h3>обязанности после школы дорама</h3>
+          <h5>12-серия</h5>
+          <span class="rating">★ 4.9</span>
+        </div>
+    </a>  
+
+    <!-- Card 7 -->
+    <a href="anime-details.html" class="manga-card">
+        <img src="https://avatars.mds.yandex.net/i?id=0431ada78aee1f029609173995e45a1456c2b12b-5235083-images-thumbs&n=13" alt="Паразить">
+        <div class="manga-info">
+          <h3>Паразить</h3>
+          <h5>12-серия</h5>
+          <span class="rating">★ 4.9</span>
+        </div>
+    </a>
+    
+    <!-- Card 8 -->
+    <a href="anime-details.html" class="manga-card">
+        <img src="https://avatars.mds.yandex.net/i?id=396bd061b2f483ac479799ff2863dfaf482e0173-11917684-images-thumbs&n=13" alt="Слабый герой">
+        <div class="manga-info">
+          <h3>Слабый герой</h3>
+          <h5>12-серия</h5>
+          <span class="rating">★ 5.0</span>
+        </div>
+    </a>
+    
+    <!-- Card 6 -->
+    <a href="anime-details.html" class="manga-card">
+        <img src="https://avatars.mds.yandex.net/i?id=f4f1a1db868d79834fc76c8dbee44537410b221b-5250085-images-thumbs&n=13" alt="3 лица">
+        <div class="manga-info">
+          <h3>ведь от третьего лица</h3>
+          <h5>12-серия</h5>
+          <span class="rating">★ 4.9</span>
+        </div>
+    </a>
+    
+    <!-- Card 6 -->
+    <a href="anime-details.html" class="manga-card">
+        <img src="https://avatars.mds.yandex.net/i?id=c94249384388399219d66c3dc7168308deba0614-3809909-images-thumbs&n=13" alt="ламп">
+        <div class="manga-info">
+          <h3>магазин ламп</h3>
+          <h5>12-серия</h5>
+          <span class="rating">★ 4.9</span>
+        </div>
+    </a>  
+
+      
+
+  </div>
+
+</body>
+</html>

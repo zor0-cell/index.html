@@ -1,280 +1,2740 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Дорама | Пужа</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-  <style>
-    :root {
-      --primary: #ff00d0;
-      --dark: #1a1a2e;
-      --light: #ffb3f0;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MusicWave</title>
+    <style>
+        :root {
+            --primary-color: #1db954;
+            --secondary-color: #1ed760;
+            --background-dark: #121212;
+            --background-darker: #000000;
+            --background-light: #181818;
+            --text-primary: #ffffff;
+            --text-secondary: #b3b3b3;
+            --border-color: #282828;
+            --gradient-start: #6366f1;
+            --gradient-end: #8b5cf6;
+        }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Montserrat', sans-serif;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-    body {
-      background-color: var(--dark);
-      color: var(--light);
-    }
+        body {
+            background: linear-gradient(135deg, var(--background-darker), var(--background-dark));
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
 
-    /* Navbar */
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background-color: #2e2c3a;
-      padding: 16px 40px;
-      color: var(--primary);
-    }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
 
-    .navbar .logo {
-      display: flex;
-      align-items: center;
-      font-size: 22px;
-      font-weight: bold;
-      color: var(--primary);
-    }
+        /* Header Styles */
+        header {
+            border-bottom: 1px solid var(--border-color);
+            padding: 20px 0;
+        }
 
-    .navbar .logo i {
-      margin-right: 8px;
-      font-size: 24px;
-    }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    .nav-links {
-      display: flex;
-      gap: 20px;
-    }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-    .nav-links a {
-      color: var(--light);
-      text-decoration: none;
-      font-size: 16px;
-      transition: color 0.2s;
-    }
+        .nav-links {
+            display: none; /* Скрываем навигацию на мобильных */
+        }
 
-    .nav-links a:hover {
-      color: #ffffff;
-    }
+        .auth-buttons {
+            display: flex;
+            gap: 12px;
+        }
 
-    .nav-icons {
-      display: flex;
-      gap: 20px;
-      font-size: 20px;
-      color: var(--light);
-      cursor: pointer;
-    }
+        .login-btn {
+            background-color: transparent;
+            color: var(--text-primary);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 500;
+            border: 1px solid var(--text-primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
 
-    h1 {
-      text-align: center;
-      margin: 2rem 0 1rem;
-      font-size: 2rem;
-    }
+        .login-btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
 
-    .manga-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 1.5rem;
-      padding: 0 2rem 2rem;
-    }
+        .signup-btn {
+            background-color: var(--text-primary);
+            color: var(--background-dark);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
 
-    .manga-card {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 10px;
-      overflow: hidden;
-      transition: transform 0.3s, box-shadow 0.3s;
-      text-decoration: none;
-      color: inherit;
-    }
+        .signup-btn:hover {
+            background-color: #e0e0e0;
+            transform: scale(1.05);
+        }
 
-    .manga-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 0 15px var(--primary);
-    }
+        /* Back Button */
+        .back-button {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
 
-    .manga-card img {
-      width: 100%;
-      height: 250px;
-      object-fit: cover;
-    }
+        .back-button:hover {
+            color: var(--text-primary);
+        }
 
-    .manga-info {
-      padding: 1rem;
-    }
+        .back-button svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
 
-    .manga-info h3 {
-      color: #ffffff;
-      margin-bottom: 0.3rem;
-      font-size: 1.1rem;
-    }
+        /* Sidebar - скрываем на мобильных */
+        .sidebar {
+            display: none;
+        }
 
-    .manga-info h5 {
-      color: #ffffff;
-      margin-bottom: 0.3rem;
-      font-size: 0.9rem;
-    }
+        /* Main Content */
+        main {
+            margin-left: 0; /* Убираем отступ для сайдбара */
+            padding: 20px 0; /* Уменьшаем отступы */
+        }
 
-    .rating {
-      color: gold;
-      font-weight: 700;
-    }
+        /* Mobile Navigation */
+        .mobile-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--background-light);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            z-index: 1000;
+        }
 
-    @media (max-width: 768px) {
-      .nav-links {
-        display: none;
-      }
+        .mobile-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 10px;
+            transition: color 0.3s ease;
+        }
 
-      .nav-icons {
-        gap: 10px;
-      }
+        .mobile-nav-item.active {
+            color: var(--primary-color);
+        }
 
-      .navbar {
-        flex-direction: column;
-        align-items: flex-start;
-      }
+        .mobile-nav-item svg {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 4px;
+            fill: currentColor;
+        }
 
-      h1 {
-        font-size: 1.5rem;
-      }
-    }
-  </style>
+        /* Page Header */
+        .page-header {
+            display: flex;
+            flex-direction: column; /* Меняем на колонку для мобильных */
+            gap: 15px;
+            align-items: flex-start;
+            margin-bottom: 30px;
+        }
+
+        .page-title {
+            font-size: 28px; /* Уменьшаем размер */
+            font-weight: 700;
+        }
+
+        .create-playlist-btn {
+            background-color: var(--primary-color);
+            color: var(--background-dark);
+            padding: 10px 16px; /* Уменьшаем отступы */
+            border-radius: 30px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            font-size: 14px; /* Уменьшаем размер шрифта */
+        }
+
+        .create-playlist-btn:hover {
+            background-color: var(--secondary-color);
+            transform: scale(1.05);
+        }
+
+        .create-playlist-btn svg {
+            width: 14px;
+            height: 14px;
+            fill: var(--background-dark);
+        }
+
+        /* Music Grid */
+        .music-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* Одна колонка на мобильных */
+            gap: 15px; /* Уменьшаем отступы */
+            margin-bottom: 40px;
+        }
+
+        .music-card {
+            background: rgba(30, 30, 30, 0.8);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px; /* Уменьшаем отступы */
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .music-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .music-card-content {
+            display: flex;
+            align-items: center;
+            gap: 12px; /* Уменьшаем отступы */
+        }
+
+        .album-cover {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .album-cover img {
+            width: 50px; /* Уменьшаем размер */
+            height: 50px;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .album-cover::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 8px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .music-card:hover .album-cover::after {
+            opacity: 1;
+        }
+
+        .play-icon {
+            width: 20px; /* Уменьшаем размер */
+            height: 20px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: scale(0);
+            transition: transform 0.3s ease;
+        }
+
+        .play-icon svg {
+            width: 10px; /* Уменьшаем размер */
+            height: 10px;
+            fill: #000;
+            margin-left: 1px;
+        }
+
+        .music-card:hover .play-icon {
+            transform: scale(1);
+        }
+
+        .track-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .track-info h3 {
+            font-size: 16px; /* Уменьшаем размер */
+            font-weight: 600;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .track-info p {
+            color: var(--text-secondary);
+            font-size: 13px; /* Уменьшаем размер */
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .track-info .album {
+            color: #737373;
+            font-size: 11px; /* Уменьшаем размер */
+        }
+
+        .track-duration {
+            color: var(--text-secondary);
+            font-size: 13px; /* Уменьшаем размер */
+            flex-shrink: 0;
+        }
+
+        /* Recently Played */
+        .recent-section {
+            margin-top: 40px; /* Уменьшаем отступ */
+        }
+
+        .recent-section h2 {
+            font-size: 20px; /* Уменьшаем размер */
+            font-weight: 700;
+            margin-bottom: 20px; /* Уменьшаем отступ */
+        }
+
+        .recent-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Две колонки на мобильных */
+            gap: 15px; /* Уменьшаем отступы */
+        }
+
+        .recent-item {
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .recent-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .recent-cover {
+            position: relative;
+            margin-bottom: 12px; /* Уменьшаем отступ */
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .recent-cover img {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .recent-cover::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 8px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .recent-item:hover .recent-cover::after {
+            opacity: 1;
+        }
+
+        .recent-play-icon {
+            width: 30px; /* Уменьшаем размер */
+            height: 30px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: scale(0);
+            transition: transform 0.3s ease;
+        }
+
+        .recent-play-icon svg {
+            width: 14px; /* Уменьшаем размер */
+            height: 14px;
+            fill: #000;
+            margin-left: 1px;
+        }
+
+        .recent-item:hover .recent-play-icon {
+            transform: scale(1);
+        }
+
+        .recent-title {
+            font-size: 14px; /* Уменьшаем размер */
+            font-weight: 500;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .recent-artist {
+            color: var(--text-secondary);
+            font-size: 12px; /* Уменьшаем размер */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Artist Page */
+        .artist-page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--background-darker), var(--background-dark));
+            z-index: 1000;
+            display: none;
+            overflow-y: auto;
+        }
+
+        .artist-page.active {
+            display: block;
+        }
+
+        .artist-header {
+            position: relative;
+            height: 300px; /* Уменьшаем высоту */
+            overflow: hidden;
+        }
+
+        .artist-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-size: cover;
+            background-position: center;
+            filter: blur(8px) brightness(0.6);
+            transform: scale(1.1);
+        }
+
+        .artist-content {
+            position: relative;
+            padding: 40px 20px 20px; /* Уменьшаем отступы */
+            display: flex;
+            flex-direction: column; /* Меняем на колонку */
+            align-items: center;
+            text-align: center;
+            height: 100%;
+        }
+
+        .artist-avatar {
+            width: 120px; /* Уменьшаем размер */
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid var(--text-primary); /* Уменьшаем толщину */
+            margin-right: 0; /* Убираем отступ справа */
+            margin-bottom: 15px; /* Добавляем отступ снизу */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Уменьшаем тень */
+        }
+
+        .artist-info h1 {
+            font-size: 32px; /* Уменьшаем размер */
+            font-weight: 800;
+            margin-bottom: 12px; /* Уменьшаем отступ */
+        }
+
+        .artist-info p {
+            font-size: 14px; /* Уменьшаем размер */
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .artist-stats {
+            display: flex;
+            gap: 20px; /* Уменьшаем отступ */
+            margin-top: 12px; /* Уменьшаем отступ */
+        }
+
+        .artist-stat {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .artist-stat-value {
+            font-size: 18px; /* Уменьшаем размер */
+            font-weight: 600;
+        }
+
+        .artist-stat-label {
+            font-size: 12px; /* Уменьшаем размер */
+            color: var(--text-secondary);
+        }
+
+        .artist-actions {
+            display: flex;
+            gap: 12px; /* Уменьшаем отступ */
+            margin-top: 20px; /* Уменьшаем отступ */
+            flex-wrap: wrap; /* Перенос на новую строку */
+            justify-content: center;
+        }
+
+        .play-button {
+            background-color: var(--primary-color);
+            color: var(--background-dark);
+            padding: 10px 20px; /* Уменьшаем отступы */
+            border-radius: 30px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px; /* Уменьшаем отступ */
+            transition: all 0.3s ease;
+            font-size: 14px; /* Уменьшаем размер */
+        }
+
+        .play-button:hover {
+            background-color: var(--secondary-color);
+            transform: scale(1.05);
+        }
+
+        .play-button svg {
+            width: 14px; /* Уменьшаем размер */
+            height: 14px;
+            fill: var(--background-dark);
+        }
+
+        .follow-button {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            padding: 10px 16px; /* Уменьшаем отступы */
+            border-radius: 30px;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px; /* Уменьшаем размер */
+        }
+
+        .follow-button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .artist-nav {
+            border-bottom: 1px solid var(--border-color);
+            padding: 0 15px; /* Уменьшаем отступы */
+            overflow-x: auto; /* Добавляем горизонтальный скролл */
+            white-space: nowrap;
+        }
+
+        .artist-nav-tabs {
+            display: inline-flex; /* Меняем на inline-flex */
+            gap: 20px; /* Уменьшаем отступ */
+        }
+
+        .artist-nav-tab {
+            padding: 12px 0; /* Уменьшаем отступы */
+            color: var(--text-secondary);
+            font-weight: 500;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+            font-size: 14px; /* Уменьшаем размер */
+        }
+
+        .artist-nav-tab.active {
+            color: var(--text-primary);
+            border-bottom-color: var(--text-primary);
+        }
+
+        .artist-content-area {
+            padding: 20px; /* Уменьшаем отступы */
+        }
+
+        .section-title {
+            font-size: 20px; /* Уменьшаем размер */
+            font-weight: 600;
+            margin-bottom: 20px; /* Уменьшаем отступ */
+        }
+
+        .tracks-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 30px; /* Уменьшаем отступ */
+        }
+
+        .track-row {
+            display: flex;
+            align-items: center;
+            padding: 10px; /* Уменьшаем отступы */
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .track-row:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .track-number {
+            width: 24px; /* Уменьшаем размер */
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 12px; /* Уменьшаем размер */
+        }
+
+        .track-info-col {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Уменьшаем отступ */
+        }
+
+        .track-cover {
+            width: 40px; /* Уменьшаем размер */
+            height: 40px;
+            border-radius: 4px;
+        }
+
+        .track-details-col {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .track-title {
+            font-weight: 500;
+            margin-bottom: 2px; /* Уменьшаем отступ */
+            font-size: 14px; /* Уменьшаем размер */
+        }
+
+        .track-artist {
+            font-size: 12px; /* Уменьшаем размер */
+            color: var(--text-secondary);
+        }
+
+        .track-album {
+            font-size: 12px; /* Уменьшаем размер */
+            color: var(--text-secondary);
+            display: none; /* Скрываем на мобильных */
+        }
+
+        .track-duration {
+            color: var(--text-secondary);
+            font-size: 12px; /* Уменьшаем размер */
+        }
+
+        .track-play {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .track-row:hover .track-play {
+            opacity: 1;
+        }
+
+        /* Player Modal */
+        .player-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--background-darker), var(--background-dark));
+            z-index: 1000;
+            display: none;
+            overflow-y: auto;
+        }
+
+        .player-modal.active {
+            display: block;
+        }
+
+        .modal-header {
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px; /* Уменьшаем отступы */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px; /* Уменьшаем отступ */
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            cursor: pointer;
+            font-size: 14px; /* Уменьшаем размер */
+        }
+
+        .back-btn:hover {
+            color: var(--text-primary);
+        }
+
+        .back-btn svg {
+            width: 14px; /* Уменьшаем размер */
+            height: 14px;
+            fill: currentColor;
+        }
+
+        .modal-options {
+            display: flex;
+            gap: 12px; /* Уменьшаем отступ */
+        }
+
+        .modal-option {
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+        }
+
+        .modal-option:hover {
+            color: var(--text-primary);
+        }
+
+        .modal-option svg {
+            width: 18px; /* Уменьшаем размер */
+            height: 18px;
+            fill: currentColor;
+        }
+
+        .modal-content {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 20px; /* Уменьшаем отступы */
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px; /* Уменьшаем отступ */
+            align-items: center;
+        }
+
+        .cover-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .album-cover-large {
+            width: 250px; /* Уменьшаем размер */
+            height: 250px;
+            border-radius: 12px; /* Уменьшаем радиус */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Уменьшаем тень */
+            position: relative;
+        }
+
+        .album-cover-large::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
+            border-radius: 12px; /* Уменьшаем радиус */
+        }
+
+        .track-details {
+            display: flex;
+            flex-direction: column;
+            gap: 20px; /* Уменьшаем отступ */
+        }
+
+        .track-details h1 {
+            font-size: 32px; /* Уменьшаем размер */
+            font-weight: 800;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .track-details p {
+            font-size: 18px; /* Уменьшаем размер */
+            color: var(--text-secondary);
+        }
+
+        .track-details .album {
+            font-size: 14px; /* Уменьшаем размер */
+            color: #a0a0a0;
+        }
+
+        .player-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px; /* Уменьшаем отступ */
+            margin-top: 15px; /* Уменьшаем отступ */
+            flex-wrap: wrap; /* Перенос на новую строку */
+            justify-content: center;
+        }
+
+        .control-btn-large {
+            width: 40px; /* Уменьшаем размер */
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .control-btn-large:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .control-btn-large svg {
+            width: 18px; /* Уменьшаем размер */
+            height: 18px;
+            fill: var(--text-primary);
+        }
+
+        .play-pause-btn {
+            width: 50px; /* Уменьшаем размер */
+            height: 50px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(29, 185, 84, 0.3);
+        }
+
+        .play-pause-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px rgba(29, 185, 84, 0.4);
+        }
+
+        .play-pause-btn svg {
+            width: 20px; /* Уменьшаем размер */
+            height: 20px;
+            fill: #000;
+            margin-left: 2px;
+        }
+
+        .repeat-btn {
+            width: 40px; /* Уменьшаем размер */
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .repeat-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .repeat-btn.active {
+            background-color: var(--primary-color);
+            color: var(--background-dark);
+        }
+
+        .repeat-btn svg {
+            width: 18px; /* Уменьшаем размер */
+            height: 18px;
+            fill: currentColor;
+        }
+
+        .progress-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 8px; /* Уменьшаем отступ */
+            width: 100%; /* Занимаем всю ширину */
+        }
+
+        .time {
+            font-size: 12px; /* Уменьшаем размер */
+            color: var(--text-secondary);
+            min-width: 35px; /* Уменьшаем ширину */
+            text-align: center;
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 4px; /* Уменьшаем высоту */
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 2px; /* Уменьшаем радиус */
+            cursor: pointer;
+            position: relative;
+        }
+
+        .progress-filled {
+            height: 100%;
+            background-color: var(--primary-color);
+            border-radius: 2px; /* Уменьшаем радиус */
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        .lyrics-section {
+            background: rgba(30, 30, 30, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px; /* Уменьшаем отступы */
+            margin-top: 30px; /* Уменьшаем отступ */
+        }
+
+        .lyrics-section h3 {
+            font-size: 18px; /* Уменьшаем размер */
+            font-weight: 600;
+            margin-bottom: 12px; /* Уменьшаем отступ */
+            color: var(--primary-color);
+        }
+
+        .lyrics-text {
+            color: var(--text-secondary);
+            line-height: 1.6; /* Уменьшаем межстрочный интервал */
+            white-space: pre-line;
+            font-size: 14px; /* Уменьшаем размер */
+        }
+
+        .lyric-line {
+            transition: color 0.3s ease;
+        }
+
+        .current-lyric {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 16px; /* Уменьшаем размер */
+        }
+
+        /* Footer Player */
+        .footer-player {
+            position: fixed;
+            bottom: 60px; /* Добавляем отступ снизу для мобильной навигации */
+            left: 0;
+            right: 0;
+            background-color: var(--background-light);
+            border-top: 1px solid var(--border-color);
+            padding: 12px; /* Уменьшаем отступы */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 999;
+        }
+
+        .current-track {
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Уменьшаем отступ */
+            flex: 1;
+            min-width: 0;
+        }
+
+        .current-track img {
+            width: 40px; /* Уменьшаем размер */
+            height: 40px;
+            border-radius: 4px;
+        }
+
+        .track-info-mini {
+            min-width: 0;
+        }
+
+        .track-info-mini h4 {
+            font-size: 12px; /* Уменьшаем размер */
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .track-info-mini p {
+            font-size: 11px; /* Уменьшаем размер */
+            color: var(--text-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .player-controls-mini {
+            display: flex;
+            align-items: center;
+            gap: 12px; /* Уменьшаем отступ */
+        }
+
+        .control-btn {
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .control-btn:hover {
+            color: var(--text-primary);
+        }
+
+        .control-btn svg {
+            width: 20px; /* Уменьшаем размер */
+            height: 20px;
+            fill: currentColor;
+        }
+
+        .repeat-btn-mini {
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+            cursor: pointer;
+            display: none; /* Скрываем на мобильных */
+        }
+
+        .repeat-btn-mini.active {
+            color: var(--primary-color);
+        }
+
+        .play-pause-mini {
+            width: 36px; /* Уменьшаем размер */
+            height: 36px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .play-pause-mini:hover {
+            transform: scale(1.05);
+        }
+
+        .play-pause-mini svg {
+            width: 16px; /* Уменьшаем размер */
+            height: 16px;
+            fill: #000;
+            margin-left: 1px;
+        }
+
+        /* Create Playlist Modal */
+        .create-playlist-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .create-playlist-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .create-playlist-content {
+            background: var(--background-light);
+            border-radius: 12px;
+            width: 90%; /* Занимаем 90% ширины */
+            max-width: 400px;
+            padding: 30px; /* Уменьшаем отступы */
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .create-playlist-modal.active .create-playlist-content {
+            transform: translateY(0);
+        }
+
+        .close-create-playlist {
+            position: absolute;
+            top: 15px; /* Уменьшаем отступ */
+            right: 15px;
+            color: var(--text-secondary);
+            font-size: 20px; /* Уменьшаем размер */
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-create-playlist:hover {
+            color: var(--text-primary);
+        }
+
+        .create-playlist-header {
+            text-align: center;
+            margin-bottom: 20px; /* Уменьшаем отступ */
+        }
+
+        .create-playlist-header h2 {
+            font-size: 22px; /* Уменьшаем размер */
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .create-playlist-header p {
+            color: var(--text-secondary);
+            font-size: 14px; /* Уменьшаем размер */
+        }
+
+        .create-playlist-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Уменьшаем отступ */
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px; /* Уменьшаем отступ */
+        }
+
+        .form-group label {
+            font-size: 13px; /* Уменьшаем размер */
+            font-weight: 500;
+        }
+
+        .form-group input {
+            padding: 10px 14px; /* Уменьшаем отступы */
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background-color: var(--background-dark);
+            color: var(--text-primary);
+            font-size: 14px; /* Уменьшаем размер */
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary-color);
+        }
+
+        .submit-btn {
+            background-color: var(--primary-color);
+            color: var(--background-dark);
+            padding: 12px; /* Уменьшаем отступы */
+            border-radius: 8px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            font-size: 14px; /* Уменьшаем размер */
+            margin-top: 8px; /* Уменьшаем отступ */
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--secondary-color);
+            transform: scale(1.02);
+        }
+
+        /* Playlists Section */
+        .playlists-section {
+            margin-top: 40px; /* Уменьшаем отступ */
+        }
+
+        .playlists-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Две колонки на мобильных */
+            gap: 15px; /* Уменьшаем отступы */
+        }
+
+        .playlist-card {
+            background: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 12px; /* Уменьшаем отступы */
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .playlist-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .playlist-cover {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 8px;
+            margin-bottom: 10px; /* Уменьшаем отступ */
+            overflow: hidden;
+        }
+
+        .playlist-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .playlist-card:hover .playlist-cover img {
+            transform: scale(1.05);
+        }
+
+        .playlist-info h3 {
+            font-size: 14px; /* Уменьшаем размер */
+            font-weight: 600;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .playlist-info p {
+            font-size: 12px; /* Уменьшаем размер */
+            color: var(--text-secondary);
+        }
+
+        /* Mobile Navigation */
+        .mobile-nav {
+            display: flex; /* Показываем мобильную навигацию */
+        }
+
+        /* Hide elements on mobile */
+        .nav-links, .sidebar {
+            display: none;
+        }
+
+        /* Adjust main content margin */
+        main {
+            margin-left: 0;
+            padding-bottom: 100px; /* Добавляем отступ для мобильной навигации */
+        }
+
+        /* Responsive adjustments */
+        @media (min-width: 768px) {
+            /* Show desktop elements on larger screens */
+            .nav-links, .sidebar {
+                display: flex;
+            }
+            
+            /* Hide mobile navigation */
+            .mobile-nav {
+                display: none;
+            }
+            
+            /* Adjust main content margin */
+            main {
+                margin-left: 260px;
+                padding-bottom: 0;
+            }
+            
+            /* Show album name in track row */
+            .track-album {
+                display: block;
+            }
+            
+            /* Show repeat button in footer */
+            .repeat-btn-mini {
+                display: block;
+            }
+            
+            /* Adjust grid layouts */
+            .music-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .recent-grid, .playlists-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            /* Adjust player modal layout */
+            .modal-content {
+                grid-template-columns: 1fr 1fr;
+                padding: 40px 20px;
+            }
+            
+            /* Adjust footer player position */
+            .footer-player {
+                bottom: 0;
+            }
+        }
+
+        @media (min-width: 992px) {
+            /* Adjust grid layouts */
+            .music-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .recent-grid, .playlists-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (min-width: 1200px) {
+            /* Adjust grid layouts */
+            .music-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .recent-grid, .playlists-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+    </style>
 </head>
 <body>
-
-  <!-- Навигация -->
-  <header class="navbar">
-    <div class="logo">
-      <i class="bi bi-play-btn-fill"></i>
-      Dorama.land
+    <!-- Sidebar (hidden on mobile) -->
+    <div class="sidebar">
+        <div class="sidebar-header">Навигация</div>
+        <div class="sidebar-menu">
+            <div class="sidebar-item active" id="homeItem">
+                <svg viewBox="0 0 24 24">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    <polyline points="9,22 9,12 15,12 15,22"/>
+                </svg>
+                <span>Главная</span>
+            </div>
+            <div class="sidebar-item" id="allMusicItem">
+                <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10"/>
+                    <line x1="12" y1="8" x2="12" y2="12"/>
+                    <line x1="12" y1="16" x2="12.01" y2="16"/>
+                </svg>
+                <span>Вся музыка</span>
+            </div>
+            <div class="sidebar-item" id="libraryItem">
+                <svg viewBox="0 0 24 24">
+                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                </svg>
+                <span>Библиотека</span>
+            </div>
+            <div class="sidebar-item" id="recentItem">
+                <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12,6 12,12 16,14"/>
+                </svg>
+                <span>Недавно</span>
+            </div>
+            <div class="sidebar-item" id="artistsItem">
+                <svg viewBox="0 0 24 24">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+                <span>Исполнители</span>
+            </div>
+            <div class="sidebar-item" id="playlistsItem">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+                <span>Плейлисты</span>
+            </div>
+        </div>
     </div>
-    <nav class="nav-links">
-      <a href="#">новые серии</a>
-      <a href="#">все дорамы</a>
-      <a href="#">фильмы</a>
-      <a href="#">расписание</a>
-      <a href="#">подборки</a>
-    </nav>
-    <div class="nav-icons">
-      <i class="bi bi-grid-fill"></i>
-      <i class="bi bi-search"></i>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title" id="pageTitle">Главная</h1>
+            <button class="create-playlist-btn" id="createPlaylistBtn">
+                <svg viewBox="0 0 24 24">
+                    <line x1="12" y1="5" x2="12" y2="19"/>
+                    <line x1="5" y1="12" x2="19" y2="12"/>
+                </svg>
+                <span>Создать плейлист</span>
+            </button>
+        </div>
+
+        <!-- Home Section -->
+        <section id="homeSection">
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <h2>Добрый вечер</h2>
+                <p>Вот ваша ежедневная подборка</p>
+            </section>
+
+            <!-- Music Grid -->
+            <section class="music-grid" id="musicGrid">
+                <!-- Music cards will be generated by JavaScript -->
+            </section>
+
+            <!-- Recently Played -->
+            <section class="recent-section">
+                <h2>Недавно прослушано</h2>
+                <div class="recent-grid" id="recentGrid">
+                    <!-- Recent items will be generated by JavaScript -->
+                </div>
+            </section>
+        </section>
+
+        <!-- All Music Section -->
+        <section id="allMusicSection" style="display: none;">
+            <div class="music-grid" id="allMusicGrid">
+                <!-- All music cards will be generated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Library Section -->
+        <section id="librarySection" style="display: none;">
+            <div class="music-grid" id="libraryGrid">
+                <!-- Library music cards will be generated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Recent Section -->
+        <section id="recentSection" style="display: none;">
+            <div class="recent-grid" id="artistsGrid">
+                <!-- Artist items will be generated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Artists Section -->
+        <section id="artistsSection" style="display: none;">
+            <div class="recent-grid" id="artistsListGrid">
+                <!-- Artist list items will be generated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Playlists Section -->
+        <section id="playlistsSection" style="display: none;">
+            <h2 class="section-title">Ваши плейлисты</h2>
+            <div class="playlists-grid" id="playlistsGrid">
+                <!-- Playlists will be generated by JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav">
+        <div class="mobile-nav-item active" id="mobileHomeItem">
+            <svg viewBox="0 0 24 24">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <polyline points="9,22 9,12 15,12 15,22"/>
+            </svg>
+            <span>Главная</span>
+        </div>
+        <div class="mobile-nav-item" id="mobileAllMusicItem">
+            <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            <span>Музыка</span>
+        </div>
+        <div class="mobile-nav-item" id="mobileLibraryItem">
+            <svg viewBox="0 0 24 24">
+                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+            </svg>
+            <span>Библиотека</span>
+        </div>
+        <div class="mobile-nav-item" id="mobileArtistsItem">
+            <svg viewBox="0 0 24 24">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+            <span>Исполнители</span>
+        </div>
+        <div class="mobile-nav-item" id="mobilePlaylistsItem">
+            <svg viewBox="0 0 24 24">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+            <span>Плейлисты</span>
+        </div>
     </div>
-  </header>
 
-  <!-- Заголовок -->
-  <h1>Дорама</h1>
-
-  <!-- Карточки дорам -->
-  <div class="manga-grid">
-
-    <!-- Card 1 -->
-    <a href="anime-details.html" class="manga-card">
-      <img src="https://avatars.mds.yandex.net/i?id=2a0000019791079599171e0222123ac5ea6f-1412630-fast-images&n=13" alt="Покорение Его Высочества">
-      <div class="manga-info">
-        <h3>Покорение Его Высочества</h3>
-        <h5>6-серия</h5>
-        <span class="rating">★ 4.9</span>
-      </div>
-    </a>
-
-    <!-- Card 2 -->
-    <a href="anime-details.html" class="manga-card">
-      <img src="https://avatars.mds.yandex.net/i?id=f2d0115ff6c63ec1e6adce479b041d2f04e288a4-6254930-images-thumbs&n=13" alt="Охотник со скальпелем">
-      <div class="manga-info">
-        <h3>Охотник со скальпелем</h3>
-        <h5>7-серия</h5>
-        <span class="rating">★ 4.9</span>
-      </div>
-    </a>
-
-    <!-- Card 3 -->
-    <a href="anime-details.html" class="manga-card">
-      <img src="https://avatars.mds.yandex.net/i?id=a4f97bf45df3ebc83097cdcc359eea2476d88791-8228018-images-thumbs&n=13" alt="Нокут">
-      <div class="manga-info">
-        <h3>Нокут</h3>
-        <h5>6-серия</h5>
-        <span class="rating">★ 4.9</span>
-      </div>
-    </a>
-
-    <a href="anime-details.html" class="manga-card">
-        <img src="https://avatars.mds.yandex.net/i?id=1d7844c4119e38f29a5e2c716e504d663a5b8b47-5447131-images-thumbs&n=13" alt="Выходи замуж за моего супруга (японская версия)">
-        <div class="manga-info">
-          <h3>Выходи замуж за моего супруга (японская версия)</h3>
-          <h5>6-серия</h5>
-          <span class="rating">★ 4.9</span>
+    <!-- Create Playlist Modal -->
+    <div class="create-playlist-modal" id="createPlaylistModal">
+        <div class="create-playlist-content">
+            <span class="close-create-playlist" id="closeCreatePlaylist">&times;</span>
+            <div class="create-playlist-header">
+                <h2>Создать плейлист</h2>
+                <p>Введите название нового плейлиста</p>
+            </div>
+            <form class="create-playlist-form" id="createPlaylistForm">
+                <div class="form-group">
+                    <label for="playlistName">Название плейлиста</label>
+                    <input type="text" id="playlistName" placeholder="Например: Моя любимая музыка" required>
+                </div>
+                <button type="submit" class="submit-btn">Создать</button>
+            </form>
         </div>
-    </a>
+    </div>
 
-    <!-- Card 5 -->
-    <a href="anime-details.html" class="manga-card">
-        <img src="https://avatars.mds.yandex.net/i?id=c3275918ac0183c1e72db2846ddda9347e3d1829-5657257-images-thumbs&n=13" alt="Неизвестный Сеул">
-        <div class="manga-info">
-          <h3>Неизвестный Сеул</h3>
-          <h5>9-серия</h5>
-          <span class="rating">★ 4.9</span>
+    <!-- Artist Page -->
+    <div class="artist-page" id="artistPage">
+        <div class="artist-header">
+            <div class="artist-background" id="artistBackground"></div>
+            <div class="artist-content">
+                <img src="" alt="Artist" class="artist-avatar" id="artistAvatar">
+                <div class="artist-info">
+                    <h1 id="artistName">Имя исполнителя</h1>
+                    <p>Музыкант • Автор песен • Продюсер</p>
+                    <div class="artist-stats">
+                        <div class="artist-stat">
+                            <span class="artist-stat-value" id="artistTrackCount">12</span>
+                            <span class="artist-stat-label">Песни</span>
+                        </div>
+                        <div class="artist-stat">
+                            <span class="artist-stat-value" id="artistAlbumCount">3</span>
+                            <span class="artist-stat-label">Альбомы</span>
+                        </div>
+                    </div>
+                    <div class="artist-actions">
+                        <button class="play-button" id="artistPlayAll">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                            Воспроизвести все
+                        </button>
+                        <button class="follow-button">Подписаться</button>
+                    </div>
+                </div>
+            </div>
         </div>
-      </a>
-    
-    <!-- Card 6 -->
-    <a href="anime-details.html" class="manga-card">
-        <img src="https://avatars.mds.yandex.net/i?id=cf103df373c1394d1f8d0e7937418558f2531213-5230232-images-thumbs&n=13" alt="обязанности после школы дорама">
-        <div class="manga-info">
-          <h3>обязанности после школы дорама</h3>
-          <h5>12-серия</h5>
-          <span class="rating">★ 4.9</span>
+        <div class="artist-nav">
+            <div class="artist-nav-tabs">
+                <div class="artist-nav-tab active">Песни</div>
+                <div class="artist-nav-tab">Альбомы</div>
+                <div class="artist-nav-tab">Популярное</div>
+            </div>
         </div>
-    </a>  
+        <div class="artist-content-area">
+            <div class="back-button" id="artistBackButton">
+                <svg viewBox="0 0 24 24">
+                    <path d="M15 19l-7-7 7-7"/>
+                </svg>
+                <span>Назад</span>
+            </div>
+            <h3 class="section-title">Популярные треки</h3>
+            <div class="tracks-list" id="artistTracksList">
+                <!-- Tracks will be added by JavaScript -->
+            </div>
+        </div>
+    </div>
 
-    <!-- Card 7 -->
-    <a href="anime-details.html" class="manga-card">
-        <img src="https://avatars.mds.yandex.net/i?id=0431ada78aee1f029609173995e45a1456c2b12b-5235083-images-thumbs&n=13" alt="Паразить">
-        <div class="manga-info">
-          <h3>Паразить</h3>
-          <h5>12-серия</h5>
-          <span class="rating">★ 4.9</span>
+    <!-- Player Modal -->
+    <div class="player-modal" id="playerModal">
+        <div class="modal-header">
+            <div class="back-btn" id="modalBackBtn">
+                <svg viewBox="0 0 24 24">
+                    <path d="M15 19l-7-7 7-7"/>
+                </svg>
+                <span>Назад</span>
+            </div>
+            <div class="modal-options">
+                <div class="modal-option">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                    </svg>
+                </div>
+                <div class="modal-option">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/>
+                    </svg>
+                </div>
+            </div>
         </div>
-    </a>
-    
-    <!-- Card 8 -->
-    <a href="anime-details.html" class="manga-card">
-        <img src="https://avatars.mds.yandex.net/i?id=396bd061b2f483ac479799ff2863dfaf482e0173-11917684-images-thumbs&n=13" alt="Слабый герой">
-        <div class="manga-info">
-          <h3>Слабый герой</h3>
-          <h5>12-серия</h5>
-          <span class="rating">★ 5.0</span>
-        </div>
-    </a>
-    
-    <!-- Card 6 -->
-    <a href="anime-details.html" class="manga-card">
-        <img src="https://avatars.mds.yandex.net/i?id=f4f1a1db868d79834fc76c8dbee44537410b221b-5250085-images-thumbs&n=13" alt="3 лица">
-        <div class="manga-info">
-          <h3>ведь от третьего лица</h3>
-          <h5>12-серия</h5>
-          <span class="rating">★ 4.9</span>
-        </div>
-    </a>
-    
-    <!-- Card 6 -->
-    <a href="anime-details.html" class="manga-card">
-        <img src="https://avatars.mds.yandex.net/i?id=c94249384388399219d66c3dc7168308deba0614-3809909-images-thumbs&n=13" alt="ламп">
-        <div class="manga-info">
-          <h3>магазин ламп</h3>
-          <h5>12-серия</h5>
-          <span class="rating">★ 4.9</span>
-        </div>
-    </a>  
+        <div class="modal-content">
+            <div class="cover-container">
+                <img src="" alt="Album Cover" class="album-cover-large" id="modalCover">
+            </div>
+            <div class="track-details">
+                <h1 id="modalTitle">Название трека</h1>
+                <p id="modalArtist">Имя исполнителя</p>
+                <p class="album" id="modalAlbum">Название альбома</p>
+                
+                <div class="player-controls">
+                    <div class="control-btn-large" id="prevBtn">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
+                        </svg>
+                    </div>
+                    <div class="control-btn-large" id="rewindBtn">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M11 18V6l-8.5 6 8.5 6zm.5-6l8.5 6V6l-8.5 6z"/>
+                        </svg>
+                    </div>
+                    <div class="play-pause-btn" id="modalPlayPause">
+                        <svg class="play-icon" id="modalPlayIcon" viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                        <svg class="pause-icon" id="modalPauseIcon" style="display: none;" viewBox="0 0 24 24">
+                            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                        </svg>
+                    </div>
+                    <div class="control-btn-large" id="fastForwardBtn">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M13 6v12l8.5-6-8.5-6zm-2 0v12H9V6h2z"/>
+                        </svg>
+                    </div>
+                    <div class="control-btn-large" id="nextBtn">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M18 18v-12l-8.5 6 8.5 6zM6 6v12h2V6H6z"/>
+                        </svg>
+                    </div>
+                    <div class="repeat-btn" id="repeatBtn">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/>
+                        </svg>
+                    </div>
+                    <div class="progress-container">
+                        <span class="time" id="currentTime">0:00</span>
+                        <div class="progress-bar" id="progressBar">
+                            <div class="progress-filled" id="progressFilled"></div>
+                        </div>
+                        <span class="time" id="totalTime">0:00</span>
+                    </div>
+                </div>
 
-      
+                <div class="lyrics-section">
+                    <h3>Текст песни</h3>
+                    <div class="lyrics-text" id="lyricsText">
+                        <!-- Lyrics will be inserted here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  </div>
+    <!-- Footer Player -->
+    <div class="footer-player" id="footerPlayer" style="display: none;">
+        <div class="current-track">
+            <img src="" alt="Current Track" id="footerCover">
+            <div class="track-info-mini">
+                <h4 id="footerTitle">Название трека</h4>
+                <p id="footerArtist">Имя исполнителя</p>
+            </div>
+        </div>
+        <div class="player-controls-mini">
+            <div class="control-btn" id="footerPrevBtn">
+                <svg viewBox="0 0 24 24">
+                    <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
+                </svg>
+            </div>
+            <div class="control-btn" id="footerRewindBtn">
+                <svg viewBox="0 0 24 24">
+                    <path d="M11 18V6l-8.5 6 8.5 6zm.5-6l8.5 6V6l-8.5 6z"/>
+                </svg>
+            </div>
+            <div class="play-pause-mini" id="footerPlayPause">
+                <svg class="play-icon" id="footerPlayIcon" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z"/>
+                </svg>
+                <svg class="pause-icon" id="footerPauseIcon" style="display: none;" viewBox="0 0 24 24">
+                    <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                </svg>
+            </div>
+            <div class="control-btn" id="footerFastForwardBtn">
+                <svg viewBox="0 0 24 24">
+                    <path d="M13 6v12l8.5-6-8.5-6zm-2 0v12H9V6h2z"/>
+                </svg>
+            </div>
+            <div class="control-btn" id="footerNextBtn">
+                <svg viewBox="0 0 24 24">
+                    <path d="M18 18v-12l-8.5 6 8.5 6zM6 6v12h2V6H6z"/>
+                </svg>
+            </div>
+            <div class="repeat-btn-mini" id="footerRepeatBtn">
+                <svg viewBox="0 0 24 24">
+                    <path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/>
+                </svg>
+            </div>
+            <div class="control-btn">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/>
+                </svg>
+            </div>
+        </div>
+    </div>
 
+    <!-- Audio Element -->
+    <audio id="audioElement"></audio>
+
+    <script>
+        // Music tracks data (200 tracks)
+        const tracks = [
+            {
+                id: 1,
+                title: "No one noticed",
+                artist: "The Marias",
+                artistId: 1,
+                album: "Stellar Journey",
+                duration: "3:",
+                cover: "https://avatars.mds.yandex.net/i?id=a3b036bcdd2d49eb7a42cd3f220f0d15f0f1af8f-5180074-images-thumbs&n=13",
+                audio: "https://files.catbox.moe/2nqd32.mp3",
+            },
+            {
+                id: 2,
+                title: "Starlight Serenade",
+                artist: "Luna Eclipse",
+                artistId: 1,
+                album: "Stellar Journey",
+                duration: "4:15",
+                cover: "https://picsum.photos/id/2/400/400",
+                audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+                lyrics: `Starlight serenade, playing soft and low
+Guiding us where we should go
+Through the velvet night so deep
+Promises we'll always keep
+
+Galaxies in perfect tune
+Dancing beneath the moon
+Every note a memory
+Of what you mean to me
+
+(Chorus)
+Starlight serenade, sing to me
+Of what's meant to be
+In this moment, in this place
+I see forever on your face`
+            },
+            {
+                id: 3,
+                title: "Cosmic Voyage",
+                artist: "Luna Eclipse",
+                artistId: 1,
+                album: "Stellar Journey",
+                duration: "3:58",
+                cover: "https://picsum.photos/id/3/400/400",
+                audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+                lyrics: `Cosmic voyage, through the void
+Where all our dreams are deployed
+Planets spinning, stars align
+In this perfect design
+
+Warp speed through the galaxy
+Finding what was meant to be
+Every light a guiding star
+No matter where we are
+
+(Chorus)
+Cosmic voyage, take us home
+Through the great unknown
+In the silence, in the dark
+You're the only light I mark`
+            },
+            {
+                id: 4,
+                title: "Ocean Waves",
+                artist: "Coastal Vibes",
+                artistId: 2,
+                album: "Tidal Harmony",
+                duration: "4:15",
+                cover: "https://picsum.photos/id/4/400/400",
+                audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
+                lyrics: `Ocean waves, crashing free
+Carrying me out to sea
+Salt in the air, wind in my hair
+Nothing compares to this feeling rare
+
+Sailing through the endless blue
+Every moment feels brand new
+Horizon line, where dreams begin
+Let the journey always win
+
+(Chorus)
+Ocean waves, carry me home
+Where I'll never feel alone
+In your rhythm, in your flow
+This is where I want to go`
+            },
+            {
+                id: 5,
+                title: "City Lights",
+                artist: "Urban Pulse",
+                artistId: 3,
+                album: "Metropolitan",
+                duration: "3:28",
+                cover: "https://picsum.photos/id/5/400/400",
+                audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3",
+                lyrics: `City lights, shining bright
+Painting shadows in the night
+Neon signs and crowded streets
+Pulsing with electric beats
+
+Taxi cabs and subway trains
+Living out our different lanes
+But in this moment, we collide
+With nowhere left to hide
+
+(Chorus)
+City lights, guide my way
+Through the rhythm of the day
+In the chaos, find the peace
+Where all our troubles cease`
+            },
+            {
+                id: 6,
+                title: "Urban Rhythm",
+                artist: "Urban Pulse",
+                artistId: 3,
+                album: "Metropolitan",
+                duration: "4:05",
+                cover: "https://picsum.photos/id/6/400/400",
+                audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3",
+                lyrics: `Urban rhythm, in my soul
+Making broken pieces whole
+Concrete jungle, steel and glass
+Where every dream can come to pass
+
+Subway sounds and taxi horns
+New beginnings being born
+Every street a different song
+Where I belong
+
+(Chorus)
+Urban rhythm, beat so strong
+In this place where I belong
+Through the noise and through the rain
+I'll never be the same`
+            },
+            {
+                id: 7,
+                title: "Mountain Air",
+                artist: "Alpine Echoes",
+                artistId: 4,
+                album: "Summit Views",
+                duration: "5:03",
+                cover: "https://picsum.photos/id/7/400/400",
+                audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3",
+                lyrics: `Mountain air, crisp and clean
+Highest peaks, the world unseen
+Eagle's cry across the sky
+Freedom in the open high
+
+Pine trees whisper ancient tales
+Of travelers and mountain trails
+Every step a new discovery
+In nature's perfect symphony
+
+(Chorus)
+Mountain air, fill my soul
+Make me feel completely whole
+On this summit, touch the sky
+Where dreams and reality lie`
+            },
+            {
+                id: 8,
+                title: "Desert Wind",
+                artist: "Sahara Soul",
+                artistId: 5,
+                album: "Golden Sands",
+                duration: "4:36",
+                cover: "https://picsum.photos/id/8/400/400",
+                audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3",
+                lyrics: `Desert wind, blowing free
+Shaping dunes eternally
+Sunset hues across the sand
+Time moves at nature's hand
+
+Camel bells and distant drums
+Ancient rhythms overcome
+Every grain tells a story
+Of a forgotten glory
+
+(Chorus)
+Desert wind, sing to me
+Of what used to be
+In the silence, hear the call
+Of the greatest of us all`
+            },
+            {
+                id: 9,
+                title: "Northern Lights",
+                artist: "Arctic Dreams",
+                artistId: 6,
+                album: "Aurora",
+                duration: "3:58",
+                cover: "https://picsum.photos/id/9/400/400",
+                audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3",
+                lyrics: `Northern lights, dancing high
+Painting colors in the sky
+Green and purple, red and blue
+A cosmic ballet, pure and true
+
+Frozen lakes and silent trees
+Beneath the arctic breeze
+Magic in the frozen air
+Beyond what words can share
+
+(Chorus)
+Northern lights, show your face
+In this sacred, quiet space
+Heaven's art on full display
+Taking my breath away`
+            },
+            {
+                id: 10,
+                title: "Sunset Boulevard",
+                artist: "Golden Hour",
+                artistId: 7,
+                album: "Twilight Dreams",
+                duration: "4:22",
+                cover: "https://picsum.photos/id/10/400/400",
+                audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3",
+                lyrics: `Sunset boulevard, golden glow
+Where the city lights begin to show
+Shadows stretch across the street
+As day and night gently meet
+
+Cafes open, neon signs
+Romantic moments, precious times
+Every window tells a tale
+Of love that will never fail
+
+(Chorus)
+Sunset boulevard, take me home
+Where I'll never feel alone
+In your colors, in your light
+Everything feels so right`
+            },
+            // Additional tracks (up to 200) would be added here
+            ...Array(190).fill().map((_, index) => ({
+                id: index + 11,
+                title: `Трек ${index + 11}`,
+                artist: ["Luna Eclipse", "Coastal Vibes", "Urban Pulse", "Alpine Echoes", "Sahara Soul", "Arctic Dreams", "Golden Hour"][index % 7],
+                artistId: (index % 7) + 1,
+                album: ["Stellar Journey", "Tidal Harmony", "Metropolitan", "Summit Views", "Golden Sands", "Aurora", "Twilight Dreams"][index % 7],
+                duration: `${Math.floor(Math.random() * 5) + 2}:${Math.floor(Math.random() * 60).toString().padStart(2, '0')}`,
+                cover: `https://picsum.photos/id/${index + 11}/400/400`,
+                audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+                lyrics: `Это трек ${index + 11} с текстом для синхронизации.
+В реальном приложении каждый трек имел бы уникальные тексты.
+Музыкальный плеер будет отображать актуальные тексты для каждой песни.
+Это демонстрирует, как система может обрабатывать несколько треков.`
+            }))
+        ];
+
+        // Artist data
+        const artists = {
+            1: {
+                name: "Luna Eclipse",
+                avatar: "https://picsum.photos/id/1/400/400",
+                background: "https://picsum.photos/id/101/1600/900",
+                trackCount: 30,
+                albumCount: 5
+            },
+            2: {
+                name: "Coastal Vibes",
+                avatar: "https://picsum.photos/id/2/400/400",
+                background: "https://picsum.photos/id/102/1600/900",
+                trackCount: 25,
+                albumCount: 4
+            },
+            3: {
+                name: "Urban Pulse",
+                avatar: "https://picsum.photos/id/3/400/400",
+                background: "https://picsum.photos/id/103/1600/900",
+                trackCount: 28,
+                albumCount: 6
+            },
+            4: {
+                name: "Alpine Echoes",
+                avatar: "https://picsum.photos/id/7/400/400",
+                background: "https://picsum.photos/id/107/1600/900",
+                trackCount: 22,
+                albumCount: 3
+            },
+            5: {
+                name: "Sahara Soul",
+                avatar: "https://picsum.photos/id/8/400/400",
+                background: "https://picsum.photos/id/108/1600/900",
+                trackCount: 18,
+                albumCount: 2
+            },
+            6: {
+                name: "Arctic Dreams",
+                avatar: "https://picsum.photos/id/9/400/400",
+                background: "https://picsum.photos/id/109/1600/900",
+                trackCount: 20,
+                albumCount: 4
+            },
+            7: {
+                name: "Golden Hour",
+                avatar: "https://picsum.photos/id/10/400/400",
+                background: "https://picsum.photos/id/110/1600/900",
+                trackCount: 27,
+                albumCount: 5
+            }
+        };
+
+        // User playlists
+        const playlists = [
+            {
+                id: 1,
+                name: "Моя любимая музыка",
+                cover: "https://picsum.photos/id/1/400/400",
+                trackCount: 12,
+                tracks: [1, 2, 3, 4, 5]
+            },
+            {
+                id: 2,
+                name: "Работа и концентрация",
+                cover: "https://picsum.photos/id/2/400/400",
+                trackCount: 8,
+                tracks: [6, 7, 8]
+            },
+            {
+                id: 3,
+                name: "Вечерние прогулки",
+                cover: "https://picsum.photos/id/3/400/400",
+                trackCount: 15,
+                tracks: [9, 10, 11]
+            }
+        ];
+
+        // Recently played tracks
+        const recentlyPlayed = tracks.slice(0, 6);
+
+        // Current user library (favorite tracks)
+        const userLibrary = tracks.slice(0, 10);
+
+        // Lyrics synchronization data (time in seconds)
+        const lyricsSync = {
+            1: [
+                { time: 0, text: "Midnight dreams, floating high" },
+                { time: 4, text: "Stars above, you and I" },
+                { time: 8, text: "Whispers in the silent night" },
+                { time: 12, text: "Everything feels so right" },
+                { time: 16, text: "Dancing shadows on the wall" },
+                { time: 20, text: "Hear the universe call" },
+                { time: 24, text: "Lost in time, lost in space" },
+                { time: 28, text: "In your arms, I find my place" },
+                { time: 32, text: "(Chorus)" },
+                { time: 34, text: "Midnight dreams, take me away" },
+                { time: 38, text: "To a world where we can stay" },
+                { time: 42, text: "No tomorrow, no goodbye" },
+                { time: 46, text: "Just you and I beneath the sky" }
+            ],
+            2: [
+                { time: 0, text: "Starlight serenade, playing soft and low" },
+                { time: 4, text: "Guiding us where we should go" },
+                { time: 8, text: "Through the velvet night so deep" },
+                { time: 12, text: "Promises we'll always keep" },
+                { time: 16, text: "Galaxies in perfect tune" },
+                { time: 20, text: "Dancing beneath the moon" },
+                { time: 24, text: "Every note a memory" },
+                { time: 28, text: "Of what you mean to me" },
+                { time: 32, text: "(Chorus)" },
+                { time: 34, text: "Starlight serenade, sing to me" },
+                { time: 38, text: "Of what's meant to be" },
+                { time: 42, text: "In this moment, in this place" },
+                { time: 46, text: "I see forever on your face" }
+            ],
+            4: [
+                { time: 0, text: "Ocean waves, crashing free" },
+                { time: 4, text: "Carrying me out to sea" },
+                { time: 8, text: "Salt in the air, wind in my hair" },
+                { time: 12, text: "Nothing compares to this feeling rare" },
+                { time: 16, text: "Sailing through the endless blue" },
+                { time: 20, text: "Every moment feels brand new" },
+                { time: 24, text: "Horizon line, where dreams begin" },
+                { time: 28, text: "Let the journey always win" },
+                { time: 32, text: "(Chorus)" },
+                { time: 34, text: "Ocean waves, carry me home" },
+                { time: 38, text: "Where I'll never feel alone" },
+                { time: 42, text: "In your rhythm, in your flow" },
+                { time: 46, text: "This is where I want to go" }
+            ]
+        };
+
+        // DOM Elements
+        const homeItem = document.getElementById('homeItem');
+        const allMusicItem = document.getElementById('allMusicItem');
+        const libraryItem = document.getElementById('libraryItem');
+        const recentItem = document.getElementById('recentItem');
+        const artistsItem = document.getElementById('artistsItem');
+        const playlistsItem = document.getElementById('playlistsItem');
+        
+        // Mobile navigation items
+        const mobileHomeItem = document.getElementById('mobileHomeItem');
+        const mobileAllMusicItem = document.getElementById('mobileAllMusicItem');
+        const mobileLibraryItem = document.getElementById('mobileLibraryItem');
+        const mobileArtistsItem = document.getElementById('mobileArtistsItem');
+        const mobilePlaylistsItem = document.getElementById('mobilePlaylistsItem');
+        
+        const pageTitle = document.getElementById('pageTitle');
+        const createPlaylistBtn = document.getElementById('createPlaylistBtn');
+        const createPlaylistModal = document.getElementById('createPlaylistModal');
+        const closeCreatePlaylist = document.getElementById('closeCreatePlaylist');
+        const createPlaylistForm = document.getElementById('createPlaylistForm');
+        
+        const homeSection = document.getElementById('homeSection');
+        const allMusicSection = document.getElementById('allMusicSection');
+        const librarySection = document.getElementById('librarySection');
+        const recentSection = document.getElementById('recentSection');
+        const artistsSection = document.getElementById('artistsSection');
+        const playlistsSection = document.getElementById('playlistsSection');
+        
+        const musicGrid = document.getElementById('musicGrid');
+        const allMusicGrid = document.getElementById('allMusicGrid');
+        const libraryGrid = document.getElementById('libraryGrid');
+        const recentGrid = document.getElementById('recentGrid');
+        const artistsGrid = document.getElementById('artistsGrid');
+        const artistsListGrid = document.getElementById('artistsListGrid');
+        const playlistsGrid = document.getElementById('playlistsGrid');
+        
+        const artistPage = document.getElementById('artistPage');
+        const artistBackButton = document.getElementById('artistBackButton');
+        const artistBackground = document.getElementById('artistBackground');
+        const artistAvatar = document.getElementById('artistAvatar');
+        const artistName = document.getElementById('artistName');
+        const artistTrackCount = document.getElementById('artistTrackCount');
+        const artistAlbumCount = document.getElementById('artistAlbumCount');
+        const artistTracksList = document.getElementById('artistTracksList');
+        const artistPlayAll = document.getElementById('artistPlayAll');
+        
+        const playerModal = document.getElementById('playerModal');
+        const modalBackBtn = document.getElementById('modalBackBtn');
+        const modalCover = document.getElementById('modalCover');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalArtist = document.getElementById('modalArtist');
+        const modalAlbum = document.getElementById('modalAlbum');
+        const lyricsText = document.getElementById('lyricsText');
+        const modalPlayPause = document.getElementById('modalPlayPause');
+        const modalPlayIcon = document.getElementById('modalPlayIcon');
+        const modalPauseIcon = document.getElementById('modalPauseIcon');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const rewindBtn = document.getElementById('rewindBtn');
+        const fastForwardBtn = document.getElementById('fastForwardBtn');
+        const repeatBtn = document.getElementById('repeatBtn');
+        const footerRepeatBtn = document.getElementById('footerRepeatBtn');
+        const footerPlayer = document.getElementById('footerPlayer');
+        const footerCover = document.getElementById('footerCover');
+        const footerTitle = document.getElementById('footerTitle');
+        const footerArtist = document.getElementById('footerArtist');
+        const footerPlayPause = document.getElementById('footerPlayPause');
+        const footerPlayIcon = document.getElementById('footerPlayIcon');
+        const footerPauseIcon = document.getElementById('footerPauseIcon');
+        const footerPrevBtn = document.getElementById('footerPrevBtn');
+        const footerNextBtn = document.getElementById('footerNextBtn');
+        const footerRewindBtn = document.getElementById('footerRewindBtn');
+        const footerFastForwardBtn = document.getElementById('footerFastForwardBtn');
+        const audioElement = document.getElementById('audioElement');
+        const currentTime = document.getElementById('currentTime');
+        const totalTime = document.getElementById('totalTime');
+        const progressBar = document.getElementById('progressBar');
+        const progressFilled = document.getElementById('progressFilled');
+
+        // Current track state
+        let currentTrack = null;
+        let currentTrackIndex = 0;
+        let isPlaying = false;
+        let currentArtistId = null;
+        let isRepeat = false;
+        let currentLyricsIndex = 0;
+        let currentPage = 'home';
+
+        // Format time function
+        function formatTime(time) {
+            const minutes = Math.floor(time / 60);
+            const seconds = Math.floor(time % 60);
+            return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // Show/hide sections
+        function showSection(section) {
+            homeSection.style.display = 'none';
+            allMusicSection.style.display = 'none';
+            librarySection.style.display = 'none';
+            recentSection.style.display = 'none';
+            artistsSection.style.display = 'none';
+            playlistsSection.style.display = 'none';
+            
+            section.style.display = 'block';
+        }
+
+        // Update active sidebar item
+        function setActiveItem(item) {
+            const items = document.querySelectorAll('.sidebar-item');
+            items.forEach(i => i.classList.remove('active'));
+            if (item) item.classList.add('active');
+        }
+
+        // Update active mobile nav item
+        function setActiveMobileItem(item) {
+            const items = document.querySelectorAll('.mobile-nav-item');
+            items.forEach(i => i.classList.remove('active'));
+            if (item) item.classList.add('active');
+        }
+
+        // Create music cards
+        function createMusicCards(container, tracksList) {
+            container.innerHTML = '';
+            tracksList.forEach(track => {
+                const card = document.createElement('div');
+                card.className = 'music-card';
+                card.innerHTML = `
+                    <div class="music-card-content">
+                        <div class="album-cover">
+                            <img src="${track.cover}" alt="${track.title}">
+                            <div class="play-icon">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M8 5v14l11-7z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="track-info">
+                            <h3>${track.title}</h3>
+                            <p>${track.artist}</p>
+                            <p class="album">${track.album}</p>
+                        </div>
+                        <div class="track-duration">${track.duration}</div>
+                    </div>
+                `;
+                card.addEventListener('click', () => playTrack(track));
+                container.appendChild(card);
+            });
+        }
+
+        // Create artist items
+        function createArtistItems(container, artistsList) {
+            container.innerHTML = '';
+            Object.values(artistsList).forEach(artist => {
+                const item = document.createElement('div');
+                item.className = 'recent-item';
+                item.innerHTML = `
+                    <div class="recent-cover">
+                        <img src="${artist.avatar}" alt="${artist.name}">
+                        <div class="recent-play-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <h3 class="recent-title">${artist.name}</h3>
+                    <p class="recent-artist">${artist.trackCount} песен</p>
+                `;
+                item.addEventListener('click', () => showArtistPage(artist.name));
+                container.appendChild(item);
+            });
+        }
+
+        // Create playlists
+        function createPlaylists() {
+            playlistsGrid.innerHTML = '';
+            playlists.forEach(playlist => {
+                const card = document.createElement('div');
+                card.className = 'playlist-card';
+                card.innerHTML = `
+                    <div class="playlist-cover">
+                        <img src="${playlist.cover}" alt="${playlist.name}">
+                    </div>
+                    <div class="playlist-info">
+                        <h3>${playlist.name}</h3>
+                        <p>${playlist.trackCount} песен</p>
+                    </div>
+                `;
+                card.addEventListener('click', () => {
+                    pageTitle.textContent = playlist.name;
+                    createMusicCards(allMusicGrid, tracks.filter(t => playlist.tracks.includes(t.id)));
+                    showSection(allMusicSection);
+                    setActiveItem(playlistsItem);
+                    setActiveMobileItem(mobilePlaylistsItem);
+                    currentPage = 'playlist';
+                });
+                playlistsGrid.appendChild(card);
+            });
+        }
+
+        // Show artist page
+        function showArtistPage(artistName) {
+            // Find artist by name
+            const artistId = Object.keys(artists).find(key => artists[key].name === artistName);
+            if (!artistId) return;
+            
+            const artist = artists[artistId];
+            currentArtistId = parseInt(artistId);
+            
+            // Update artist page
+            artistBackground.style.backgroundImage = `url(${artist.background})`;
+            artistAvatar.src = artist.avatar;
+            artistName.textContent = artist.name;
+            artistTrackCount.textContent = artist.trackCount;
+            artistAlbumCount.textContent = artist.albumCount;
+            
+            // Clear and populate tracks list
+            artistTracksList.innerHTML = '';
+            const artistTracks = tracks.filter(track => track.artistId === currentArtistId);
+            
+            artistTracks.forEach((track, index) => {
+                const trackRow = document.createElement('div');
+                trackRow.className = 'track-row';
+                trackRow.innerHTML = `
+                    <div class="track-number">${index + 1}</div>
+                    <div class="track-info-col">
+                        <img src="${track.cover}" alt="${track.title}" class="track-cover">
+                        <div class="track-details-col">
+                            <div class="track-title">${track.title}</div>
+                            <div class="track-artist">${track.artist}</div>
+                        </div>
+                    </div>
+                    <div class="track-album">${track.album}</div>
+                    <div class="track-duration">${track.duration}</div>
+                    <div class="track-play">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                    </div>
+                `;
+                trackRow.addEventListener('click', () => playTrack(track));
+                artistTracksList.appendChild(trackRow);
+            });
+            
+            // Show artist page
+            artistPage.classList.add('active');
+        }
+
+        // Find track index
+        function findTrackIndex(trackId) {
+            return tracks.findIndex(track => track.id === trackId);
+        }
+
+        // Play track function
+        function playTrack(track) {
+            currentTrack = track;
+            currentTrackIndex = findTrackIndex(track.id);
+            currentLyricsIndex = 0;
+            
+            // Update modal
+            modalCover.src = track.cover;
+            modalTitle.textContent = track.title;
+            modalArtist.textContent = track.artist;
+            modalAlbum.textContent = track.album;
+            
+            // Create synchronized lyrics
+            updateLyricsDisplay();
+            
+            // Update footer
+            footerCover.src = track.cover;
+            footerTitle.textContent = track.title;
+            footerArtist.textContent = track.artist;
+            
+            // Set audio source
+            audioElement.src = track.audio;
+            audioElement.load();
+            
+            // Show modal and footer
+            playerModal.classList.add('active');
+            footerPlayer.style.display = 'flex';
+            
+            // Play audio
+            audioElement.play()
+                .then(() => {
+                    isPlaying = true;
+                    updatePlayPauseIcons();
+                })
+                .catch(err => {
+                    console.log('Playback failed:', err);
+                });
+        }
+
+        // Update lyrics display with synchronization
+        function updateLyricsDisplay() {
+            lyricsText.innerHTML = '';
+            
+            if (lyricsSync[currentTrack.id]) {
+                lyricsSync[currentTrack.id].forEach((line, index) => {
+                    const lineElement = document.createElement('div');
+                    lineElement.className = 'lyric-line';
+                    lineElement.textContent = line.text;
+                    lineElement.dataset.time = line.time;
+                    lyricsText.appendChild(lineElement);
+                });
+            } else {
+                // Fallback to regular lyrics if no sync data
+                const lines = currentTrack.lyrics.split('\n');
+                lines.forEach(line => {
+                    if (line.trim()) {
+                        const lineElement = document.createElement('div');
+                        lineElement.className = 'lyric-line';
+                        lineElement.textContent = line;
+                        lyricsText.appendChild(lineElement);
+                    }
+                });
+            }
+        }
+
+        // Update current lyric based on playback time
+        function updateCurrentLyric(currentTime) {
+            if (!lyricsSync[currentTrack.id]) return;
+            
+            const lines = lyricsText.querySelectorAll('.lyric-line');
+            let newIndex = 0;
+            
+            for (let i = 0; i < lines.length; i++) {
+                const lineTime = parseFloat(lines[i].dataset.time);
+                if (currentTime >= lineTime) {
+                    newIndex = i;
+                } else {
+                    break;
+                }
+            }
+            
+            if (newIndex !== currentLyricsIndex) {
+                // Remove current class from all lines
+                lines.forEach(line => {
+                    line.classList.remove('current-lyric');
+                });
+                
+                // Add current class to new line
+                lines[newIndex].classList.add('current-lyric');
+                
+                // Scroll to current line
+                lines[newIndex].scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+                
+                currentLyricsIndex = newIndex;
+            }
+        }
+
+        // Update play/pause icons
+        function updatePlayPauseIcons() {
+            if (isPlaying) {
+                modalPlayIcon.style.display = 'none';
+                modalPauseIcon.style.display = 'block';
+                footerPlayIcon.style.display = 'none';
+                footerPauseIcon.style.display = 'block';
+            } else {
+                modalPlayIcon.style.display = 'block';
+                modalPauseIcon.style.display = 'none';
+                footerPlayIcon.style.display = 'block';
+                footerPauseIcon.style.display = 'none';
+            }
+        }
+
+        // Update repeat button state
+        function updateRepeatButton() {
+            if (isRepeat) {
+                repeatBtn.classList.add('active');
+                footerRepeatBtn.classList.add('active');
+            } else {
+                repeatBtn.classList.remove('active');
+                footerRepeatBtn.classList.remove('active');
+            }
+        }
+
+        // Play/Pause functionality
+        function togglePlayPause() {
+            if (isPlaying) {
+                audioElement.pause();
+            } else {
+                audioElement.play();
+            }
+            isPlaying = !isPlaying;
+            updatePlayPauseIcons();
+        }
+
+        // Toggle repeat mode
+        function toggleRepeat() {
+            isRepeat = !isRepeat;
+            updateRepeatButton();
+        }
+
+        // Previous track
+        function playPrevious() {
+            if (currentTrackIndex > 0) {
+                playTrack(tracks[currentTrackIndex - 1]);
+            }
+        }
+
+        // Next track
+        function playNext() {
+            if (currentTrackIndex < tracks.length - 1) {
+                playTrack(tracks[currentTrackIndex + 1]);
+            } else {
+                // If repeat is on, loop back to first track
+                if (isRepeat) {
+                    playTrack(tracks[0]);
+                }
+            }
+        }
+
+        // Rewind 10 seconds
+        function rewind() {
+            audioElement.currentTime = Math.max(0, audioElement.currentTime - 10);
+        }
+
+        // Fast forward 10 seconds
+        function fastForward() {
+            audioElement.currentTime = Math.min(audioElement.duration, audioElement.currentTime + 10);
+        }
+
+        // Play all artist tracks
+        function playAllArtistTracks() {
+            const artistTracks = tracks.filter(track => track.artistId === currentArtistId);
+            if (artistTracks.length > 0) {
+                playTrack(artistTracks[0]);
+            }
+        }
+
+        // Show create playlist modal
+        function showCreatePlaylistModal() {
+            createPlaylistModal.classList.add('active');
+        }
+
+        // Hide create playlist modal
+        function hideCreatePlaylistModal() {
+            createPlaylistModal.classList.remove('active');
+        }
+
+        // Create new playlist
+        function createNewPlaylist(name) {
+            const newPlaylist = {
+                id: playlists.length + 1,
+                name: name,
+                cover: "https://picsum.photos/id/1/400/400",
+                trackCount: 0,
+                tracks: []
+            };
+            playlists.push(newPlaylist);
+            createPlaylists();
+        }
+
+        // Event Listeners for desktop navigation
+        homeItem.addEventListener('click', () => {
+            pageTitle.textContent = 'Главная';
+            showSection(homeSection);
+            setActiveItem(homeItem);
+            setActiveMobileItem(mobileHomeItem);
+            currentPage = 'home';
+        });
+
+        allMusicItem.addEventListener('click', () => {
+            pageTitle.textContent = 'Вся музыка';
+            createMusicCards(allMusicGrid, tracks);
+            showSection(allMusicSection);
+            setActiveItem(allMusicItem);
+            setActiveMobileItem(mobileAllMusicItem);
+            currentPage = 'allMusic';
+        });
+
+        libraryItem.addEventListener('click', () => {
+            pageTitle.textContent = 'Библиотека';
+            createMusicCards(libraryGrid, userLibrary);
+            showSection(librarySection);
+            setActiveItem(libraryItem);
+            setActiveMobileItem(mobileLibraryItem);
+            currentPage = 'library';
+        });
+
+        recentItem.addEventListener('click', () => {
+            pageTitle.textContent = 'Недавно прослушано';
+            createArtistItems(artistsGrid, artists);
+            showSection(recentSection);
+            setActiveItem(recentItem);
+            setActiveMobileItem(mobileHomeItem);
+            currentPage = 'recent';
+        });
+
+        artistsItem.addEventListener('click', () => {
+            pageTitle.textContent = 'Исполнители';
+            createArtistItems(artistsListGrid, artists);
+            showSection(artistsSection);
+            setActiveItem(artistsItem);
+            setActiveMobileItem(mobileArtistsItem);
+            currentPage = 'artists';
+        });
+
+        playlistsItem.addEventListener('click', () => {
+            pageTitle.textContent = 'Плейлисты';
+            createPlaylists();
+            showSection(playlistsSection);
+            setActiveItem(playlistsItem);
+            setActiveMobileItem(mobilePlaylistsItem);
+            currentPage = 'playlists';
+        });
+
+        // Event Listeners for mobile navigation
+        mobileHomeItem.addEventListener('click', () => {
+            pageTitle.textContent = 'Главная';
+            showSection(homeSection);
+            setActiveItem(homeItem);
+            setActiveMobileItem(mobileHomeItem);
+            currentPage = 'home';
+        });
+
+        mobileAllMusicItem.addEventListener('click', () => {
+            pageTitle.textContent = 'Вся музыка';
+            createMusicCards(allMusicGrid, tracks);
+            showSection(allMusicSection);
+            setActiveItem(allMusicItem);
+            setActiveMobileItem(mobileAllMusicItem);
+            currentPage = 'allMusic';
+        });
+
+        mobileLibraryItem.addEventListener('click', () => {
+            pageTitle.textContent = 'Библиотека';
+            createMusicCards(libraryGrid, userLibrary);
+            showSection(librarySection);
+            setActiveItem(libraryItem);
+            setActiveMobileItem(mobileLibraryItem);
+            currentPage = 'library';
+        });
+
+        mobileArtistsItem.addEventListener('click', () => {
+            pageTitle.textContent = 'Исполнители';
+            createArtistItems(artistsListGrid, artists);
+            showSection(artistsSection);
+            setActiveItem(artistsItem);
+            setActiveMobileItem(mobileArtistsItem);
+            currentPage = 'artists';
+        });
+
+        mobilePlaylistsItem.addEventListener('click', () => {
+            pageTitle.textContent = 'Плейлисты';
+            createPlaylists();
+            showSection(playlistsSection);
+            setActiveItem(playlistsItem);
+            setActiveMobileItem(mobilePlaylistsItem);
+            currentPage = 'playlists';
+        });
+
+        createPlaylistBtn.addEventListener('click', showCreatePlaylistModal);
+        closeCreatePlaylist.addEventListener('click', hideCreatePlaylistModal);
+        createPlaylistModal.addEventListener('click', (e) => {
+            if (e.target === createPlaylistModal) {
+                hideCreatePlaylistModal();
+            }
+        });
+
+        createPlaylistForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const playlistName = document.getElementById('playlistName').value;
+            if (playlistName.trim()) {
+                createNewPlaylist(playlistName.trim());
+                createPlaylistForm.reset();
+                hideCreatePlaylistModal();
+            }
+        });
+
+        modalPlayPause.addEventListener('click', togglePlayPause);
+        footerPlayPause.addEventListener('click', togglePlayPause);
+        repeatBtn.addEventListener('click', toggleRepeat);
+        footerRepeatBtn.addEventListener('click', toggleRepeat);
+        modalBackBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            playerModal.classList.remove('active');
+        });
+
+        // Artist page events
+        artistPlayAll.addEventListener('click', playAllArtistTracks);
+        artistBackButton.addEventListener('click', () => {
+            artistPage.classList.remove('active');
+        });
+        
+        // Close artist page when clicking outside
+        artistPage.addEventListener('click', (e) => {
+            if (e.target === artistPage) {
+                artistPage.classList.remove('active');
+            }
+        });
+
+        // Control buttons
+        prevBtn.addEventListener('click', playPrevious);
+        nextBtn.addEventListener('click', playNext);
+        rewindBtn.addEventListener('click', rewind);
+        fastForwardBtn.addEventListener('click', fastForward);
+        footerPrevBtn.addEventListener('click', playPrevious);
+        footerNextBtn.addEventListener('click', playNext);
+        footerRewindBtn.addEventListener('click', rewind);
+        footerFastForwardBtn.addEventListener('click', fastForward);
+
+        // Audio event listeners
+        audioElement.addEventListener('timeupdate', () => {
+            const time = audioElement.currentTime;
+            currentTime.textContent = formatTime(time);
+            const percent = (time / audioElement.duration) * 100;
+            progressFilled.style.width = `${percent}%`;
+            
+            // Update synchronized lyrics
+            updateCurrentLyric(time);
+        });
+
+        audioElement.addEventListener('loadedmetadata', () => {
+            totalTime.textContent = formatTime(audioElement.duration);
+        });
+
+        audioElement.addEventListener('ended', () => {
+            isPlaying = false;
+            updatePlayPauseIcons();
+            
+            // If repeat is on, replay the current track
+            if (isRepeat) {
+                audioElement.currentTime = 0;
+                audioElement.play();
+                isPlaying = true;
+                updatePlayPauseIcons();
+            } else {
+                // Otherwise, play the next track
+                playNext();
+            }
+        });
+
+        // Progress bar click
+        progressBar.addEventListener('click', (e) => {
+            const width = progressBar.clientWidth;
+            const clickX = e.offsetX;
+            const duration = audioElement.duration;
+            audioElement.currentTime = (clickX / width) * duration;
+        });
+
+        // Initialize the page
+        createMusicCards(musicGrid, tracks.slice(0, 6));
+        createMusicCards(allMusicGrid, tracks);
+        createMusicCards(libraryGrid, userLibrary);
+        createArtistItems(recentGrid, artists);
+        createArtistItems(artistsListGrid, artists);
+        createPlaylists();
+        
+        // Set initial active item
+        setActiveItem(homeItem);
+        setActiveMobileItem(mobileHomeItem);
+    </script>
 </body>
 </html>
